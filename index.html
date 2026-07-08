@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RPS Console Game</title>
+</head>
+<body>
+
+<script>
+  const choices = ["rock", "paper", "scissors"];
+  let playerScore = 0;
+  let computerScore = 0;
+
+  function getComputerChoice() {
+    return choices[Math.floor(Math.random() * choices.length)];
+  }
+
+  function getWinner(player, computer) {
+    if (player === computer) return "tie";
+
+    if (
+      (player === "rock" && computer === "scissors") ||
+      (player === "paper" && computer === "rock") ||
+      (player === "scissors" && computer === "paper")
+    ) {
+      return "player";
+    }
+
+    return "computer";
+  }
+
+  function playGame() {
+    console.log("🎮 Rock Paper Scissors Started!");
+    console.log("Type rock, paper, or scissors in the prompt.");
+
+    while (true) {
+      let playerChoice = prompt("Enter rock, paper, or scissors (or type 'exit' to quit):");
+
+      if (!playerChoice) continue;
+
+      playerChoice = playerChoice.toLowerCase();
+
+      if (playerChoice === "exit") {
+        console.log("👋 Game ended.");
+        console.log(`Final Score => You: ${playerScore} | Computer: ${computerScore}`);
+        break;
+      }
+
+      if (!choices.includes(playerChoice)) {
+        console.log("❌ Invalid choice.");
+        continue;
+      }
+
+      const computerChoice = getComputerChoice();
+      const winner = getWinner(playerChoice, computerChoice);
+
+      console.log(`You: ${playerChoice}`);
+      console.log(`Computer: ${computerChoice}`);
+
+      if (winner === "tie") {
+        console.log("🤝 It's a tie!");
+      } else if (winner === "player") {
+        console.log("✅ You win!");
+        playerScore++;
+      } else {
+        console.log("❌ You lose!");
+        computerScore++;
+      }
+
+      console.log(`Score => You: ${playerScore} | Computer: ${computerScore}`);
+      console.log("------");
+    }
+  }
+
+  // Start game automatically
+  playGame();
+</script>
+
+</body>
+</html>
